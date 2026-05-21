@@ -49,7 +49,7 @@ export async function GET(request) {
         "5일차_진행": sel("5일차_진행"),
         진행율_계획: p["진행율_계획"]?.number,
         진행율_진행: p["진행율_진행"]?.number,
-        진행인원: txt("진행인원"),
+        진행인원: (p["진행인원"]?.multi_select || []).map((s) => s.name).join(", "),
         상세내용: txt("상세내용"),
         특이사항: txt("특이사항"),
         일정시작: p["일정시작"]?.date?.start || "",

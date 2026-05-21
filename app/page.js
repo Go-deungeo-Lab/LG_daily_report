@@ -2,11 +2,13 @@
 import { useState, useCallback, useRef, useEffect } from "react";
 
 function getWeekDates(offset = 0) {
-  const d = new Date();
-  d.setDate(d.getDate() + offset * 7);
-  const day = d.getDay();
-  const diff = d.getDate() - day + (day === 0 ? -6 : 1);
-  const mon = new Date(d.setDate(diff));
+  // KST 기준 오늘
+  const now = new Date();
+  const kst = new Date(now.getTime() + (9 * 60 - now.getTimezoneOffset()) * 60000);
+  kst.setDate(kst.getDate() + offset * 7);
+  const day = kst.getDay();
+  const diff = kst.getDate() - day + (day === 0 ? -6 : 1);
+  const mon = new Date(kst.setDate(diff));
   return Array.from({ length: 5 }, (_, i) => {
     const dt = new Date(mon);
     dt.setDate(mon.getDate() + i);
